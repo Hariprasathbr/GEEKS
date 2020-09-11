@@ -1,0 +1,93 @@
+
+
+Given two n-ary tree's the task is to check if they are mirror of each other or not.
+
+Example
+
+     1                    1
+   /    \                 /   \
+ 2      3             3     2
+
+Output: 1
+
+    1                      1
+   /  \                    /  \
+ 2    3                2    3
+
+Output: 0
+
+Note: you may assume that root of both the given tree as 1.
+
+Input:
+The first line of input contains an integer T denoting the no of test cases. Then T test cases follow. The first line of each test case contains two space separated values n and e denoting the no of nodes and edges respectively. Then in the next line two lines are 2*e space separated values u,v denoting an edge from u to v for the both trees .
+
+Output:
+For each test case in a new line print 1 if both the trees are mirrors of each other else print 0.
+
+Constraints:
+1<=T<=20
+1<=n<=15
+1<=e<=20
+
+Example:
+Input:
+2
+3 2
+1 2 1 3
+1 3 1 2
+3 2
+1 2 1 3
+1 2 1 3
+Output:
+1
+0
+________________________________________
+#include<bits/stdc++.h>
+using namespace std;
+
+void addEdge(vector<int> adj[],int u,int v){
+	adj[u].push_back(v);
+}
+
+int main(){
+	int tc;
+	cin>>tc;
+	while(tc--){
+		int V,E;
+		cin>>V>>E;
+		// First Directed Graph
+		vector<int> G1[V];
+		for(int i=0;i<E;i++){
+			int u,v;
+			cin>>u>>v;
+			addEdge(G1,u,v);
+		}
+		// Second Directed Graph
+		vector<int> G2[V];
+		for(int i=0;i<E;i++){
+			int u,v;
+			cin>>u>>v;
+			addEdge(G2,u,v);
+		}
+		// Reversing Adjacancy list of G2
+		for(int i=0;i<V;i++)
+			reverse(G2[i].begin(),G2[i].end());
+		
+		// Comparing Adjacancy list of G1 and G2
+		int flag=0;
+		
+		for(int i=0;i<V;i++){
+			if(G1[i]!=G2[i]){
+				flag=1;
+				break;
+			}
+		}
+		if(flag)
+			cout<<0<<endl;
+		else
+			cout<<1<<endl;
+	}
+
+
+
+return 0;}
